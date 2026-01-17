@@ -1,69 +1,70 @@
 # Automated Plant Irigation
-Acest proiect are ca principal obiectiv automatizarea procesului de irigatie al plantelor. Proiectul este doar un prototip, si are la baza o pompa de apa care, pe baza unei achizitii de date de la un senzor, “stie” cand trebuie sau cand nu trebuie sa ude o planta.
+This project has as its main objective the automation of the plant irrigation process. The project is only a prototype, and is based on a water pump which, based on data acquisition from a sensor, “knows” when it should or should not water a plant.
 
-## Descrierea domeniului
+## Domain Description
 
-Domeniul ales a fost cel al agriculturii, unde prin avansarea tehnologiei, se doreste cat mai mult control asupra tuturor sarcinilor dintr-o anumita activitate agricola.
+The chosen domain was agriculture, where through the advancement of technology, as much control as possible is desired over all tasks within a specific agricultural activity.
 
-## Descrierea solutiei propuse
+## Description of the Proposed Solution
 
-Solutia noastra vizeaza udarea in mod automat a plantelor, cu foarte putina interventie umana si luarea deciziilor pe baza nevoilor optime ale plantei. Este necesara o minima interventie umana la reumplerea rezervorului.
+Our solution aims at automatically watering plants, with very little human intervention and making decisions based on the plant’s optimal needs. Minimal human intervention is required to refill the reservoir.
 
-## Descrierea functiilor
-1. Functia **setup()**: 
+## Description of the Functions
+1. Function **setup()**: 
 
-Aici se efectueaza setarea modurilor pinilor pe care ii vom folosi in program.
+Here, the configuration of the pin modes that will be used in the program is performed.
 
-3. Functia **loop()**: 
+3. Function **loop()**: 
 
-In aceasta functie se afla logica programului: 
-- Achizitia de date de la cei doi senzori
-- Actionarea pompei de apa
-- Controlul alarmei
-- Afisarea pe LCD a textului
+In this function is the program logic: 
+- Data acquisition from the two sensors
+- Water pump activation
+- Alarm control
+- Displaying the text on the LCD
 
-## Prezentarea functionalitatilor:
+## Presentation of the Functionalities:
 
-*Senzorul de umiditate* este introdus in pamantul plantei, si are rolul de achizitie a datelor de catre placa de dezvoltare. Prin el, se decide daca planta are nevoie sau nu de apa, masurand umiditatea solului de la senzor. Astfel nu este nevoie ca cineva sa porneasca sau sa opreasca pompa. 
+*The moisture sensor* is inserted into the plant’s soil, and has the role of acquiring data for the development board. Through it, it is decided whether the plant needs water or not, by measuring the soil moisture at the sensor. Thus, there is no need for someone to start or stop the pump. 
 
-*Senzorul de nivel* ne avertizeaza cand nu mai exista apa in rezervor, fiind inserat in rezervor alaturi de pompa de apa. Rolul acestui senzor este de a lasa motorul sa absoarba cat de multa apa se poate, pana la nivelul gurii de admisie, unde procesul se opreste pentru a nu trage in gol mai departe motorul pompei, care se poate supraincalzi si defecta.
+*The level sensor* alerts us when there is no more water in the reservoir, being inserted into the reservoir alongside the water pump. The role of this sensor is to allow the motor to draw as much water as possible, up to the level of the intake opening, where the process stops in order not to let the pump motor continue to run dry, which can overheat and fail.
 
-Daca pompa nu s-ar opri la un moment dat, ar incepe sa traga aer cand se termina apa si se va supraincalzi motorul, care ulterior e posibil sa nu mai functioneze. Pentru a relua procesul, se reumple rezervorul. 
+If the pump did not stop at some point, it would start drawing air when the water runs out and the motor would overheat, which could later stop working. To resume the process, the reservoir is refilled. 
 
-*Pompa de apa* are la baza un motor DC. O data cu pornirea ei, motorul va incepe sa functioneze, creand efectul de absorbtie la gura de admisie, astfel pompa absorbind apa si eliminand-o ulterior prin gura de evacuare la care vom atasa un tub de cauciuc. 
+*The water pump* is based on a DC motor. Once it is started, the motor will begin to operate, creating the suction effect at the intake opening, thus the pump absorbing water and then expelling it through the outlet to which we will attach a rubber tube. 
 
-Pompa este alimentata direct de la sursa de 5V, insa este controlata de un pin digital din placuta. Controlul acesteia este realizat cu ajutorul unui *tranzistor bipolar NPN* folosit pe post de switch. 
+The pump is powered directly from the 5V source, but is controlled by a digital pin on the board. Its control is achieved with the help of an *NPN bipolar transistor* used as a switch. 
 
-Daca planta are nevoie de apa, se porneste pompa, generand prin baza tranzistorului tensiune de la pinul de control, colectorul fiind conectat la sursa de alimentare, ulterior curentul iesind prin emitor si intrand direct in pompa de apa. 
+If the plant needs water, the pump is started, generating voltage at the transistor’s base from the control pin, the collector being connected to the power source, after which the current exits through the emitter and enters directly into the water pump. 
 
-Daca planta este destul de udata, pompa se opreste deoarece pinul de control nu genereaza tensiune. Asadar tranzistorul ramane blocat si pompa oprita. 
+If the plant is sufficiently watered, the pump stops because the control pin does not generate voltage. Thus, the transistor remains blocked and the pump stopped. 
 
-Am implementat de asemenea si un *ecran LCD* care afiseaza starile procesului. Prin acesta putem monitoriza mereu daca planta necesita apa sau nu si de asemenea daca rezervorul ramane fara suficienta apa. Contrastul ecranului poate fi modificat dupa dorinta prin intermediul potentiometrului. 
+We also implemented an *LCD screen* that displays the states of the process. Through it, we can always monitor whether the plant needs water or not and also whether the reservoir runs out of sufficient water. The screen contrast can be modified as desired through the potentiometer. 
 
-*Dioda* se conecteaza cu anodul la masa si catodul la intrarea curentului in motor, pentru prevenirea fenomenului de curent invers caracteristic motoarelor de curent continuu. 
+*The diode* is connected with the anode to ground and the cathode to the current input of the motor, to prevent the reverse current phenomenon characteristic of DC motors. 
 
-Daca dioda ar fi lipsit, curentul invers ar fi intrat inapoi in circuit, mai exact in firele conectate la ecranul LCD, acesta realizand afisari eronate cu caractere random drept rezultat al fenomenului. 
+If the diode were missing, the reverse current would flow back into the circuit, more exactly into the wires connected to the LCD screen, which would result in incorrect displays with random characters as a result of the phenomenon. 
 
-Placuta este alimentata la o *baterie* de 9V prin intermediul regulatorului de tensiune al placii Arduino (Vin avand nevoie de o tensiune de peste 6.2V si in modul cel mai ideal o tensiune de 9-12V). De asemenea, montajul poate fi alimentat printr-un cablu USB direct de la priza.
+The board is powered by a *9V battery* through the Arduino board’s voltage regulator (Vin requiring a voltage above 6.2V and ideally a voltage of 9–12V). The setup can also be powered through a USB cable directly from a wall outlet.
 
-## Proiecte inspiratie
+## Inspiration Projects
 
 
 1. [https://littlebirdelectronics.com.au/guides/4/automatic-plant-watering-with-arduinol](https://littlebirdelectronics.com.au/guides/4/automatic-plant-watering-with-arduinol "https://littlebirdelectronics.com.au/guides/4/automatic-plant-watering-with-arduinol")
-Un ghid pentru conectarea corecta a placutei Arduino, si programarea ei sa monitorizeze nivelul de umiditate al solului.
+A guide for correctly connecting the Arduino board, and programming it to monitor soil moisture levels.
 
 2. [https://www.instructables.com/Arduino-Plant-Watering-System/](https://www.instructables.com/Arduino-Plant-Watering-System/ "https://www.instructables.com/Arduino-Plant-Watering-System/")
 
-Un proiect explicat detaliat, cu informatii importante despre conectarea pieselor in sistem.
+A project explained in detail, with important information about connecting the components in the system.
 
 3. [https://all3dp.com/2/arduino-watering-system-plant-irrigation-project/](https://all3dp.com/2/arduino-watering-system-plant-irrigation-project/ "https://all3dp.com/2/arduino-watering-system-plant-irrigation-project/")
 
-O lista de proiecte similare, pentru a ne inspira in ce directie dorim sa mergem cu proiectul, si a vedea mai multe tipuri de implementari/ metode.
+A list of similar projects, to inspire us in which direction we want to take the project, and to see more types of implementations/methods.
 
-Fotografie cu sistemul fizic
+Photo of the physical system
 
 https://drive.google.com/file/d/1JjNN5J7rqB9Y7VEqI2ETJJCZhXCpOuPM/view?usp=share_link
 
-Fotografie cu schema electrica
+Photo of the electrical schematic
+
 
 https://drive.google.com/file/d/1pBTtXYBoKVpl2ghW-xNlZd-EVJemro_j/view?usp=share_link
