@@ -10,7 +10,7 @@ void loop()
     delay(500);
     analogWrite(alarmPin, 0);
     lcd.setCursor(0, 0);
-    lcd.print("Introduce apa!");
+    lcd.print("Get water!");
   }
   else
   {
@@ -18,18 +18,19 @@ void loop()
     if(sensorValue < thresholdValue)
     {
        lcd.setCursor(0, 0);
-       lcd.print("Planta nu are");
+       lcd.print("Plant doesn't");
        lcd.setCursor(0, 1);
-       lcd.print("nevoie de apa");
+       lcd.print("need water");
     }
     else 
     {
        lcd.setCursor(0, 0);
-       lcd.print("Planta trebuie");
+       lcd.print("Plant needs");
        lcd.setCursor(0, 1);
-       lcd.print("udata");
+       lcd.print("water");
        digitalWrite(OnOff, HIGH); // if the plant needs water, the water pump will start
     }
   }
   delay(500);
 }
+
