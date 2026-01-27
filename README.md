@@ -1,4 +1,4 @@
-# Automated Plant Irigation
+# Automated Plant Irrigation
 This project has as its main objective the automation of the plant irrigation process. The project is only a prototype, and is based on a water pump which, based on data acquisition from a sensor, “knows” when it should or should not water a plant.
 
 ## Domain Description
@@ -68,3 +68,4 @@ Photo of the electrical schematic
 
 
 https://drive.google.com/file/d/1pBTtXYBoKVpl2ghW-xNlZd-EVJemro_j/view?usp=share_link
+
